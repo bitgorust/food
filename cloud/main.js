@@ -4,6 +4,20 @@ AV.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
 });
 
+AV.Cloud.define("today", function(request, response) {
+    var Food = AV.Object.extend("Food");
+    var foodQuery = new AV.Query(Food);
+    foodQuery.limit(20);
+    foodQuery.select("name", "r_id", "url");
+    foodQuery.find().then(function(foods) {
+        return foods;
+    }).then(function(foods) {
+        response.success(foods);
+    }, function(error) {
+        response.error("today's foods lookup failed");
+    });
+});
+
 AV.Cloud.define("diet", function(request, response) {
     var Order = AV.Object.extend("Order");
     var Food = AV.Object.extend("Food");
