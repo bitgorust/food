@@ -31,20 +31,23 @@ AV.Cloud.define("diet", function(request, response) {
     foodQuery.select("name", "r_id", "shucai", "weidao", "roulei", "zhushi", "caixi");
     foodQuery.find().then(function(foods) {
         var shucai = {}, weidao = {}, roulei = {}, zhushi = {}, caixi = {};
-        for (var i = 0; i < foods.length; ++i) {
-            add_to_map(shucai, foods[i].get("shucai"));
-            add_to_map(weidao, foods[i].get("weidao"));
-            add_to_map(roulei, foods[i].get("roulei"));
-            add_to_map(zhushi, foods[i].get("zhushi"));
-            add_to_map(caixi,  foods[i].get("caixi"));
+        if (foods.length > 0) {
+            for (var i = 0; i < foods.length; ++i) {
+                add_to_map(shucai, foods[i].get("shucai"));
+                add_to_map(weidao, foods[i].get("weidao"));
+                add_to_map(roulei, foods[i].get("roulei"));
+                add_to_map(zhushi, foods[i].get("zhushi"));
+                add_to_map(caixi,  foods[i].get("caixi"));
+            }
+            return {
+                "shucai" : shucai,
+                "weidao" : weidao,
+                "roulei" : roulei,
+                "zhushi" : zhushi,
+                "caixi"  : caixi
+                };
         }
-        return {
-            "shucai" : shucai,
-            "weidao" : weidao,
-            "roulei" : roulei,
-            "zhushi" : zhushi,
-            "caixi"  : caixi
-            };
+        return null;
     }).then(function(diet) {
         response.success(diet);
     }, function(error) {
