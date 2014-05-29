@@ -42,7 +42,7 @@ AV.Cloud.define("similar", function(request, response) {
                 var result = {};
                 for (var i = 0; i < diets.length; ++i) {
                     if (diets[i].get("u_id") != request.params.u_id) {
-                        result[diets[i].get("u_id")] = similarity(myDiet, diets[i]);
+                        result[diets[i].get("u_name")] = similarity(myDiet, diets[i]);
                     }
                 }
                 return result;
