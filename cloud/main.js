@@ -9,7 +9,7 @@ AV.Cloud.define("hello", function(request, response) {
 AV.Cloud.define("today", function(request, response) {
     var Food = AV.Object.extend("Food");
     var foodQuery = new AV.Query(Food);
-    foodQuery.limit(30);
+    foodQuery.limit(request.params.limit);
     foodQuery.notEqualTo("url", "");
     foodQuery.select("name", "r_id", "url");
     foodQuery.find().then(function(foods) {
